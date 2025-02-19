@@ -1,0 +1,16 @@
+# can you complete this .gitignore file for this project (C++, CUDA, using CMake)?
+.idea
+.*.sw[a-z]
+*.cmake
+CMakeFiles
+CMakeCache.txt
+CMakeScripts
+CMakeTmp
+Makefile
+cmake_install.cmake
+compile_commands.json
+
+cmake-build-debug
+cmake-build-release
+build
+
