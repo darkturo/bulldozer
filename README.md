@@ -3,6 +3,9 @@
 Bulldozer is a bitcoin miner that uses a mix of CPU and GPU compute to
 calculate the PoW.
 
+<!-- image of a bulldozer -->
+![Bulldozer](docs/imgs/bulldozer.jpg)
+
 I thought initially to call this project "digger", but thought that bulldozer
 sounded more intimidating, powerful, and reflective of the type of program 
 I want to build: I'll use CUDA algorithms as a big wide blade to clear up the
