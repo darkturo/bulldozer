@@ -23,7 +23,8 @@ namespace bulldozer {
         wc_Sha256Final(&sha256, reinterpret_cast<byte *>(digest.data()));
     }
 
-    void sha256d_digest(const std::span<uint8_t> message, std::span<uint8_t> digest) {
+    template <ByteType T>
+    void sha256d_digest(const std::span<T> message, std::span<T> digest) {
         // PRE: digest.size() == DigestSize
         sha256_digest(message, digest);
         sha256_digest(digest, digest);

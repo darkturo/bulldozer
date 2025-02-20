@@ -38,7 +38,7 @@ TEST(Sha256SmokeTest, double_sha_basic) {
 
     unsigned char buffer2[bulldozer::DigestSize];
     std::span<unsigned char> hash2(buffer);
-    bulldozer::sha256d_digest(plaintext, hash2);
+    bulldozer::sha256d_digest(std::span<unsigned char>(plaintext), hash2);
     EXPECT_EQ(hash2.size(), 32);
     EXPECT_EQUAL_SPAN(hash2, expected);
 }
