@@ -9,3 +9,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 # add_subdirectory(src)
 
 add_subdirectory(test)
+add_subdirectory(benchmark)

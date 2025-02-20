@@ -1,5 +1,6 @@
 run_tests
 bulldozer
+bulldozer_bench
 
 .idea
 .*sw[a-z]
