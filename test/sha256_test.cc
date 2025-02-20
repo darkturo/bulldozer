@@ -12,7 +12,7 @@ TEST(Sha256SmokeTest, basic) {
             0xb0, 0x03, 0x61, 0xa3, 0x96, 0x17, 0x7a, 0x9c, 0xb4, 0x10, 0xff, 0x61, 0xf2, 0x00, 0x15, 0xad
     };
 
-    auto hash = sha256_digest(plaintext);
+    auto hash = bulldozer::sha256_digest(plaintext);
 
     EXPECT_EQ(hash.size(), 32);
     EXPECT_EQ(hash, expected);
@@ -25,13 +25,13 @@ TEST(Sha256SmokeTest, double_sha_basic) {
             0x5b, 0x2d, 0x60, 0x6d, 0x05, 0xda, 0xed, 0x5a, 0xd5, 0x12, 0x8c, 0xc0, 0x3e, 0x6c, 0x63, 0x58
     };
 
-    auto hash = sha256_digest(plaintext);
-    hash = sha256_digest(hash);
+    auto hash = bulldozer::sha256_digest(plaintext);
+    hash = bulldozer::sha256_digest(hash);
 
     EXPECT_EQ(hash.size(), 32);
     EXPECT_EQ(hash, expected);
 
-    auto hash2 = sha256d_digest(plaintext);
+    auto hash2 = bulldozer::sha256d_digest(plaintext);
     EXPECT_EQ(hash2.size(), 32);
     EXPECT_EQ(hash2, expected);
 }
