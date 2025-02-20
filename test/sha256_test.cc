@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 #include <sha256.h>
 
+#include "test_util.h"
 
 
 TEST(Sha256SmokeTest, basic) {
@@ -12,10 +13,12 @@ TEST(Sha256SmokeTest, basic) {
             0xb0, 0x03, 0x61, 0xa3, 0x96, 0x17, 0x7a, 0x9c, 0xb4, 0x10, 0xff, 0x61, 0xf2, 0x00, 0x15, 0xad
     };
 
-    auto hash = bulldozer::sha256_digest(plaintext);
+    unsigned char buffer[bulldozer::DigestSize];
+    std::span<unsigned char> hash(buffer);
+    bulldozer::sha256_digest(std::span<unsigned char>(plaintext), hash);
 
     EXPECT_EQ(hash.size(), 32);
-    EXPECT_EQ(hash, expected);
+    EXPECT_EQUAL_SPAN(hash, expected);
 }
 
 TEST(Sha256SmokeTest, double_sha_basic) {
@@ -25,13 +28,17 @@ TEST(Sha256SmokeTest, double_sha_basic) {
             0x5b, 0x2d, 0x60, 0x6d, 0x05, 0xda, 0xed, 0x5a, 0xd5, 0x12, 0x8c, 0xc0, 0x3e, 0x6c, 0x63, 0x58
     };
 
-    auto hash = bulldozer::sha256_digest(plaintext);
-    hash = bulldozer::sha256_digest(hash);
+    unsigned char buffer[bulldozer::DigestSize];
+    std::span<unsigned char> hash(buffer);
+    bulldozer::sha256_digest(std::span<unsigned char>(plaintext), hash);
+    bulldozer::sha256_digest(hash, hash);
 
     EXPECT_EQ(hash.size(), 32);
-    EXPECT_EQ(hash, expected);
+    EXPECT_EQUAL_SPAN(hash, expected);
 
-    auto hash2 = bulldozer::sha256d_digest(plaintext);
+    unsigned char buffer2[bulldozer::DigestSize];
+    std::span<unsigned char> hash2(buffer);
+    bulldozer::sha256d_digest(plaintext, hash2);
     EXPECT_EQ(hash2.size(), 32);
-    EXPECT_EQ(hash2, expected);
+    EXPECT_EQUAL_SPAN(hash2, expected);
 }

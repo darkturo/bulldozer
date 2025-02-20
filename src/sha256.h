@@ -3,22 +3,29 @@
 #include <wolfssl/options.h>
 #include <wolfssl/wolfcrypt/sha256.h>
 
-#include <vector>
+#include <span>
 
 namespace bulldozer {
-    std::vector <uint8_t> sha256_digest(const std::vector <uint8_t> &message) {
-        byte hash[WC_SHA256_DIGEST_SIZE];
+    const uint32_t DigestSize = WC_SHA256_DIGEST_SIZE;
 
+    template<typename T>
+    concept ByteType = requires(T a) {
+        { a } -> std::convertible_to<uint8_t>;
+    };
+
+    template <ByteType T>
+    void sha256_digest(const std::span<T> message, std::span<T> digest) {
+        // PRE: digest.size() == DigestSize
         wc_Sha256 sha256;
 
         wc_InitSha256(&sha256);
         wc_Sha256Update(&sha256, reinterpret_cast<const byte *>(message.data()), message.size());
-        wc_Sha256Final(&sha256, hash);
-
-        return std::vector<uint8_t>(hash, hash + WC_SHA256_DIGEST_SIZE);
+        wc_Sha256Final(&sha256, reinterpret_cast<byte *>(digest.data()));
     }
 
-    std::vector <uint8_t> sha256d_digest(const std::vector <uint8_t> &message) {
-        return sha256_digest(sha256_digest(message));
+    void sha256d_digest(const std::span<uint8_t> message, std::span<uint8_t> digest) {
+        // PRE: digest.size() == DigestSize
+        sha256_digest(message, digest);
+        sha256_digest(digest, digest);
     }
 }
