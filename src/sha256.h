@@ -1,17 +1,14 @@
 #pragma once
 
+#include <span>
 #include <wolfssl/options.h>
 #include <wolfssl/wolfcrypt/sha256.h>
 
-#include <span>
+#include "constraints.h"
+
 
 namespace bulldozer {
     const uint32_t DigestSize = WC_SHA256_DIGEST_SIZE;
-
-    template<typename T>
-    concept ByteType = requires(T a) {
-        { a } -> std::convertible_to<uint8_t>;
-    };
 
     template <ByteType T>
     void sha256_digest(const std::span<T> message, std::span<T> digest) {
