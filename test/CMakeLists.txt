@@ -8,9 +8,10 @@ find_package(GTest REQUIRED)
 include_directories(${SRC_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
 
+file(GLOB SRC_FILES "${SRC_DIR}/*.cc")
 file(GLOB TEST_FILES "${TEST_DIR}/*.cc")
 
-add_executable(run_tests ${TEST_FILES})
+add_executable(run_tests ${TEST_FILES} ${SRC_FILES})
 
 target_link_libraries(run_tests
         PRIVATE

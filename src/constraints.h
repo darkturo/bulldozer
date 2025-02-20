@@ -1,4 +1,6 @@
 #pragma once
+#include <concepts>
+#include <cstdint>
 
 namespace bulldozer {
     template<typename T>
