@@ -28,25 +28,17 @@ namespace bulldozer {
     }
 
     template <ByteType T>
-    void MerkleTree<T>::update_coinbase(std::span<T> coinbase) {
-        std::span<T> coinbase_txid(p_txids, DigestSize);
-        sha256d_digest<T>(coinbase, coinbase_txid);
-    }
-
-    template <ByteType T>
-    void MerkleTree<T>::add_tx(std::span<T> tx) {
-        assert(m_index < m_numLeaves);
-        std::span<T> txid(p_txids + m_index * DigestSize, DigestSize);
-        sha256d_digest<T>(tx, txid);
-        m_index++;
-    }
-
-    template <ByteType T>
     void MerkleTree<T>::add_txid(std::span<T> txid) {
         assert(m_index < m_numLeaves);
         std::span<T> output(p_txids + m_index * DigestSize, DigestSize);
         std::copy(txid.begin(), txid.end(), output.begin());
         m_index++;
+    }
+
+    template <ByteType T>
+    void MerkleTree<T>::update_coinbase(std::span<T> coinbase) {
+        std::span<T> coinbase_txid(p_txids, DigestSize);
+        sha256d_digest<T>(coinbase, coinbase_txid);
     }
 
     template <ByteType T>

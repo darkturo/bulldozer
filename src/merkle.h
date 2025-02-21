@@ -13,9 +13,8 @@ namespace bulldozer {
     public:
         MerkleTree(size_t num_leaves);
         ~MerkleTree();
-        void update_coinbase(std::span<T> coinbase);
-        void add_tx(std::span<T> tx);
         void add_txid(std::span<T> txid);
+        void update_coinbase(std::span<T> coinbase);
         void calculate_merkle_root(std::span<T> output);
 
     private:
