@@ -136,4 +136,10 @@ namespace bulldozer::cuda {
         }
     }
 
+    __device__ void sha256d(const unsigned char *data, size_t len, unsigned char *hash) {
+        unsigned char prehash[32];
+        cuhash_sha256(data, len, prehash);
+        cuhash_sha256(prehash, 32, hash);
+    }
+
 }
