@@ -28,7 +28,9 @@ to get a great performance.
 
 These are the questions I want to answer with this project:
 
-- Can I calculate the merkle root on a CPU for an avergae block (of 2000 txs) in less than 1 second?
+- Can I calculate the merkle root on a CPU for an average block (of 2000 txs) in less than 1 second?
+  ANSWER: yes. As of now I see that 2500 addresses can be calculated 0.000689 seconds, 
+          that's more than 1200 merkle roots per second. We could improve it, but it's a good start.
 - Can I calculate a double SHA-256 on a GPU device in less than 4 ns?
 - Can I actually manage to calculate 2^32 SHA-256d hashes in 17 seconds or less?
 
