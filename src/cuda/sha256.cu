@@ -1,6 +1,5 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "common.cuh"
 
 #include "sha256.cuh"
 
