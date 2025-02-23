@@ -9,8 +9,6 @@ include_directories(${CUDA_INCLUDE_DIRS})
 enable_language(CUDA)
 
 file(GLOB CUDA_SRC_FILES ${SRC_DIR}/*.cu)
-message(STATUS "!!!!!CUDA_SRC_FILES: ${CUDA_SRC_FILES}")
-
 
 add_executable(bulldozer_cuda_bench bulldozer_cuda_bench.cu ${CUDA_SRC_FILES})
 target_link_libraries(bulldozer_cuda_bench
