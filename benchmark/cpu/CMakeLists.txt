@@ -6,7 +6,7 @@ find_package(Boost REQUIRED COMPONENTS filesystem system)
 find_package(gflags REQUIRED)
 
 
-set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
+set(SRC_DIR ${PROJECT_SOURCE_DIR}/src/bulldozer)
 
 include_directories(${SRC_DIR})
 file(GLOB SRC_FILES ${SRC_DIR}/*.cc)

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 set(TEST_DIR ${PROJECT_SOURCE_DIR}/test)
-set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
+set(SRC_DIR ${PROJECT_SOURCE_DIR}/src/bulldozer)
 
 find_package(GTest REQUIRED)
 
