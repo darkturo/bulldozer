@@ -1,16 +1,16 @@
 #pragma once
 
-#include <queue>
+#include <condition_variable>
 #include <mutex>
+#include <queue>
 #include <string>
 #include <thread>
 
 #include "blockheader.h"
 #include "merkle.h"
-#include "sha256.h"
 
 namespace bulldozer {
-    constexpr uint32_t QueueSize = 10'000;
+    constexpr uint32_t MaxQueueSize = 10'000;
     class BlockHeaderGenerator {
     public:
         BlockHeaderGenerator(::MerkleTree<char> &merkle_tree,
@@ -23,12 +23,17 @@ namespace bulldozer {
         startGenerator();
         stopGenerator();
 
-        bool isEmpty();j
+        bool isEmpty();
         ::bitcoin::BlockHeader getNextBlockHeader(); // Blocking call
+
+    private:
+        void blockHeaderGenerator();
+
     private:
         bool m_is_active;
         std::queue<::bitcoin::BlockHeader> m_queue;
         std::mutex m_mutex;
+        std::condition_variable m_cv;
         std::thread th_generator;
 
         ::MerkleTree<char> &m_merkle_tree;
