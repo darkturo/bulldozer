@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 find_package(CUDA REQUIRED)
 find_package(nvbench REQUIRED)
 
-set(SRC_DIR ${PROJECT_SOURCE_DIR}/src/bulldozer/cuda)
+set(SRC_DIR ${PROJECT_SOURCE_DIR}/src/bulldozer)
 include_directories(${SRC_DIR})
 include_directories(${CUDA_INCLUDE_DIRS})
 enable_language(CUDA)
