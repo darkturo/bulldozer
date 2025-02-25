@@ -20,7 +20,9 @@ namespace bulldozer {
         m_pay_to_btc_address(pay_to_btc_address),
         m_prev_block_hash(prev_block_hash),
         m_seconds_from_now(seconds_from_now)
-    { }
+    {
+        m_queue.reserve(MaxQueueSize);
+    }
 
     void BlockHeaderGenerator::startGenerator() {
         m_is_active = true;
@@ -30,6 +32,7 @@ namespace bulldozer {
 
     void BlockHeaderGenerator::stopGenerator() {
         m_is_active = false;
+        m_cv.notify_all();
         th_generator.join();
     }
 
@@ -44,7 +47,7 @@ namespace bulldozer {
         {
             std::unique_lock <std::mutex> lock(m_mutex);
             if (m_queue.empty()) {
-                m_cv.wait(lock, [this] { return !m_queue.empty(); });
+                m_cv.wait(lock, m_is_active && !m_queue.empty(); );
             }
             blockHeader = m_queue.front();
             m_queue.pop();
@@ -58,10 +61,12 @@ namespace bulldozer {
         while (m_is_active) {
             ::bitcoin::BlockHeader blockHeader;
 
+            /** TODO: Fill in the block header */
+
             {
                 std::lock_guard<std::mutex> lock(m_mutex);
                 if (m_queue.size() == MaxQueueSize) {
-                    m_cv.wait(lock, m_queue.size() < MaxQueueSize);
+                    m_cv.wait(lock, m_is_active && (m_queue.size() < MinQueueSize));
                 }
                 m_queue.push(bh);
             }

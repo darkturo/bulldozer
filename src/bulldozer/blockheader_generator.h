@@ -1,5 +1,6 @@
 #pragma once
 
+#include <atomic>
 #include <condition_variable>
 #include <mutex>
 #include <queue>
@@ -10,7 +11,10 @@
 #include "merkle.h"
 
 namespace bulldozer {
-    constexpr uint32_t MaxQueueSize = 10'000;
+    const uint32_t MaxQueueSize = 10'000;
+    const float32_t MinQueueOccupancy = 0.1;
+    constexpr uint32_t MinQueueSize = MaxQueueSize * MinQueueOccupancy;
+
     class BlockHeaderGenerator {
     public:
         BlockHeaderGenerator(::MerkleTree<char> &merkle_tree,
@@ -30,7 +34,7 @@ namespace bulldozer {
         void blockHeaderGenerator();
 
     private:
-        bool m_is_active;
+        std::atomic<bool> m_is_active;
         std::queue<::bitcoin::BlockHeader> m_queue;
         std::mutex m_mutex;
         std::condition_variable m_cv;
