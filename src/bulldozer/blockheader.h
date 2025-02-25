@@ -2,7 +2,7 @@
 
 namespace bulldozer {
     namespace bitcoin {
-        constexpr int32_t Version = 0x4;
+        constexpr int32_t BlockVersion = 0x4;
         constexpr uint32_t DigestSize = 32;
         struct BlockHeader {
             int32_t version = Version;

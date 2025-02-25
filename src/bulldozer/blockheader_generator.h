@@ -41,10 +41,12 @@ namespace bulldozer {
         std::thread th_generator;
 
         ::MerkleTree<char> &m_merkle_tree;
-        uint32_t m_block_height;
+
         std::string m_miner_tag;
         std::string m_pay_to_btc_address;
         char m_prev_block_hash[::bitcoin::DigestSize];
-        uint32_t m_seconds_from_now;
+        uint32_t m_block_height;
+        uint32_t m_block_time;
+        uint32_t m_difficulty_target;
     };
 }
