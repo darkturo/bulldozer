@@ -1,7 +1,7 @@
 run_tests
-bulldozer
-bulldozer_bench
-bulldozer_cuda_bench
+/bulldozer
+/bulldozer_bench
+/bulldozer_cuda_bench
 
 .idea
 .*sw[a-z]
